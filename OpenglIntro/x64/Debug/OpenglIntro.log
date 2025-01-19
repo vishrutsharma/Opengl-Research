@@ -1,0 +1,6 @@
+﻿  App.cpp
+C:\Vishrut\Programming\PersonalProjects\VisualStudio\OpenGL\OpenglIntro\src\App.cpp(74,2): warning C4150: deletion of pointer to incomplete type 'GLFWwindow'; no destructor called
+  Mesh.cpp
+C:\Vishrut\Programming\PersonalProjects\VisualStudio\OpenGL\OpenglIntro\src\Mesh.cpp(77,13): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  Generating Code...
+  OpenglIntro.vcxproj -> C:\Vishrut\Programming\PersonalProjects\VisualStudio\OpenGL\OpenglIntro\x64\Debug\OpenglIntro.exe
