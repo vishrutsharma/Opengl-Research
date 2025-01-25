@@ -1,17 +1,12 @@
 #include "App.h"
 #include "Mesh.h"
 #include "Texture.h"
+#include "AppConfig.h"
 
-const int SCREEN_WIDTH = 800;
-const int SCREEN_HEIGHT = 800;
-const char* WINDOW_TITLE = "Opengl Tutorials";
-const char* TEXTURE_PATH = "media/Texture0.png";
-const char* VERTEX_SHADER_PATH = "src/Shaders/vertex.SHADER";
-const char* FRAGMENT_SHADER_PATH = "src/Shaders/fragment.SHADER";
 
 GLFWwindow* App::CreateAppWindow()
 {
-	m_window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_TITLE, NULL, NULL);
+	m_window = glfwCreateWindow(Config::WINDOW::SCREEN_WIDTH, Config::WINDOW::SCREEN_HEIGHT, Config::WINDOW::WINDOW_TITLE, NULL, NULL);
 	return m_window;
 }
 
@@ -23,9 +18,9 @@ App::App()
 void App::Init()
 {
 	Mesh* m = new Mesh("My Mesh");
-	Shader* s = new Shader(VERTEX_SHADER_PATH,FRAGMENT_SHADER_PATH);
+	Shader* s = new Shader(Config::PATHS::VERTEX_SHADER_PATH, Config::PATHS::FRAGMENT_SHADER_PATH);
 	Texture2D* t = new Texture2D();
-	t->LoadTexture(TEXTURE_PATH);
+	t->LoadTexture(Config::PATHS::TEXTURE_PATH);
 	m->SetTexture(t);
 	m->SetShader(s);
 	m_meshes.push_back(m);

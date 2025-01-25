@@ -15,7 +15,7 @@ class Mesh
 {
 
 private:
-	void SET_TRANSFORMATION_MATRIX(glm::mat4& mat);
+	void SET_TRANSFORMATION_MATRIX();
 	const char* name;
 	std::vector<Components::Vertex*> m_vertices;
 	Shader* m_shader;

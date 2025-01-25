@@ -3,11 +3,6 @@
 #include <GLFW\glfw3.h>
 #include <vector>
 
-
-extern const int SCREEN_WIDTH;
-extern const int SCREEN_HEIGHT;
-extern const char* WINDOW_TITLE;
-
 class Mesh;
 
 class App

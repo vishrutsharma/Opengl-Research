@@ -1,5 +1,6 @@
 #include "Mesh.h"
 #include <iostream>
+#include "AppConfig.h"
 
 
 Mesh::Mesh(const char* _name):VBO(0),VAO(0),EBO(0),m_scale(1),m_rotation(0)
@@ -65,9 +66,7 @@ void Mesh::Render()
 	glUseProgram(m_shader->ID);
 	glUniform1i(glGetUniformLocation(m_shader->ID, "ourTexture"), 0);
 	
-	glm::mat4 transformationMat = glm::mat4(1.0f);
-	SET_TRANSFORMATION_MATRIX(transformationMat);
-	
+	SET_TRANSFORMATION_MATRIX();
 	glBindVertexArray(VAO);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }
@@ -79,13 +78,28 @@ void Mesh::Update()
 	SetScale(glm::sin(time));
 }
 
-void Mesh::SET_TRANSFORMATION_MATRIX(glm::mat4& transformationMat)
+void Mesh::SET_TRANSFORMATION_MATRIX()
 {
-	transformationMat = glm::translate(transformationMat, m_position);
-	transformationMat = glm::rotate(transformationMat, m_rotation, glm::vec3(0.0, 0.0, 1.0));
-	transformationMat = glm::scale(transformationMat, glm::vec3(1, 1, 1) * (m_scale));
-	unsigned int transLocation = glGetUniformLocation(m_shader->ID, "transform");
-	glad_glUniformMatrix4fv(transLocation, 1, GL_FALSE, glm::value_ptr(transformationMat));
+	glm::mat4 modelMatrix = glm::mat4(1.0f);
+	glm::mat4 viewMatrix = glm::mat4(1.0f);
+	glm::mat4 projectionMatrix = glm::mat4(1.0f);
+	//modelMatrix = glm::translate(modelMatrix, m_position);
+	modelMatrix = glm::rotate(modelMatrix, m_rotation, glm::vec3(1.0, 0.0, 0.0));
+	//modelMatrix = glm::scale(modelMatrix, glm::vec3(1, 1, 1) * (m_scale));
+	
+	viewMatrix = glm::translate(viewMatrix, glm::vec3(0.0, 0.0, -3.0));
+	projectionMatrix = glm::perspective(glm::radians(Config::CAMERA::FOV),
+		(float)Config::WINDOW::SCREEN_WIDTH /(float) Config::WINDOW::SCREEN_HEIGHT,
+		Config::CAMERA::NEAR_CLIP_PLANE, 
+		Config::CAMERA::FAR_CLIP_PLANE);
+
+	unsigned int modelLocation = glGetUniformLocation(m_shader->ID, "model");
+	unsigned int viewLocation = glGetUniformLocation(m_shader->ID, "view");
+	unsigned int projectionLocation = glGetUniformLocation(m_shader->ID, "projection");
+
+	glad_glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(modelMatrix));
+	glad_glUniformMatrix4fv(viewLocation, 1, GL_FALSE, glm::value_ptr(viewMatrix));
+	glad_glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
 }
 
 Mesh::~Mesh()

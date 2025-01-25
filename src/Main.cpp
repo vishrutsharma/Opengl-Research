@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include "App.h"
+#include "AppConfig.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 
@@ -37,7 +38,7 @@ int main()
 		return -1;
 	}
 
-	glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+	glViewport(0, 0,Config::WINDOW::SCREEN_WIDTH, Config::WINDOW::SCREEN_HEIGHT);
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 	app->Init();
 

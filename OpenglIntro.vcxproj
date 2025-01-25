@@ -136,6 +136,7 @@
   <ItemGroup>
     <ClCompile Include="glad.c" />
     <ClCompile Include="src\App.cpp" />
+    <ClCompile Include="src\AppConfig.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\Mesh.cpp" />
     <ClCompile Include="src\Shader.cpp" />
@@ -143,6 +144,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\App.h" />
+    <ClInclude Include="src\AppConfig.h" />
     <ClInclude Include="src\Components.h" />
     <ClInclude Include="src\Defines.h" />
     <ClInclude Include="src\Mesh.h" />

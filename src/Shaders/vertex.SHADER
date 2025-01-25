@@ -5,11 +5,13 @@ layout (location = 2) in vec2 uvs;
 
 out vec4 vertexColor;
 out vec2 uvCords;
-uniform mat4 transform;
+uniform mat4 model;
+uniform mat4 view;
+uniform mat4 projection;
 
 void main()
 {
-	gl_Position = transform * vec4(aPos,1.0);
+	gl_Position =  projection * view * model * vec4(aPos,1.0);
 	vertexColor = vec4(vColor,1.0);
 	uvCords = vec2(uvs.x,uvs.y);
 }
