@@ -17,10 +17,10 @@ App::App()
 
 void App::Init()
 {
-	Mesh* m = new Mesh("My Mesh");
-	Shader* s = new Shader(Config::PATHS::VERTEX_SHADER_PATH, Config::PATHS::FRAGMENT_SHADER_PATH);
+	Mesh* m = new Mesh(Config::PATHS::MESH_PATH);
 	Texture2D* t = new Texture2D();
 	t->LoadTexture(Config::PATHS::TEXTURE_PATH);
+	Shader* s = new Shader(Config::PATHS::VERTEX_SHADER_PATH, Config::PATHS::FRAGMENT_SHADER_PATH);
 	m->SetTexture(t);
 	m->SetShader(s);
 	m_meshes.push_back(m);

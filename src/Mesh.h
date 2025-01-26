@@ -10,14 +10,13 @@
 #include "Components.h"
 #include "Shader.h"
 #include "Texture.h"
+#include "MeshLoader.h"
 
 class Mesh
 {
 
 private:
 	void SET_TRANSFORMATION_MATRIX();
-	const char* name;
-	std::vector<Components::Vertex*> m_vertices;
 	Shader* m_shader;
 	Texture2D* m_texture;
 	unsigned int VBO;
@@ -26,16 +25,16 @@ private:
 	float m_scale;
 	float m_rotation;
 	glm::vec3 m_position;
+	C_Mesh::Data m_data;
 
 public:
-	Mesh(const char* _name);
+	Mesh(const char* path);
 	inline void SetPosition(const glm::vec3& pos) { m_position = pos; }
 	inline void SetRotation(const float degree) { m_rotation = degree; }
 	inline void SetScale(const float scale) { m_scale = scale; }
 	inline void SetShader(Shader* shader) { m_shader = shader; }
 	inline void SetTexture(Texture2D* texture) { m_texture = texture; }
-
-	void AddVertex(const glm::vec3 _vector, const glm::vec3 _color, const glm::vec2 _uvCoodinates);
+	inline const C_Mesh::Data& GetData() { return m_data; }
 	void Update();
 	void Render();
 	~Mesh();

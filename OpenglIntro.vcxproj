@@ -72,7 +72,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Vishrut\Paths\VisualStudio\OpenGL\Include;C:\Vishrut\Paths\VisualStudio\GLM\glm\glm;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Vishrut\Paths\VisualStudio\OpenGL\Include;C:\Vishrut\Paths\VisualStudio\GLM\glm\glm;C:\Vishrut\Paths\VisualStudio\nlohmann;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Vishrut\Paths\VisualStudio\OpenGL\Libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -139,6 +139,7 @@
     <ClCompile Include="src\AppConfig.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\Mesh.cpp" />
+    <ClCompile Include="src\MeshLoader.cpp" />
     <ClCompile Include="src\Shader.cpp" />
     <ClCompile Include="src\Texture.cpp" />
   </ItemGroup>
@@ -148,12 +149,18 @@
     <ClInclude Include="src\Components.h" />
     <ClInclude Include="src\Defines.h" />
     <ClInclude Include="src\Mesh.h" />
+    <ClInclude Include="src\MeshLoader.h" />
     <ClInclude Include="src\Shader.h" />
     <ClInclude Include="src\Texture.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\Shaders\fragment.SHADER" />
-    <None Include="src\Shaders\vertex.SHADER" />
+    <None Include="Assets\Mesh\Cube.yaml" />
+    <None Include="Assets\Mesh\Pyramid.yaml" />
+    <None Include="Assets\Mesh\Rectangle.yaml" />
+    <None Include="Assets\Mesh\Square.yaml" />
+    <None Include="Assets\Mesh\Triangle.yaml" />
+    <None Include="Assets\Shaders\fragment.shader" />
+    <None Include="Assets\Shaders\vertex.shader" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

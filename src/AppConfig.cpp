@@ -18,8 +18,9 @@ namespace Config
 
 	namespace PATHS
 	{
-		 const char* TEXTURE_PATH = "media/Texture0.png";
-		 const char* VERTEX_SHADER_PATH = "src/Shaders/vertex.SHADER";
-		 const char* FRAGMENT_SHADER_PATH = "src/Shaders/fragment.SHADER";
+		 const char* MESH_PATH = "Assets/Mesh/Rectangle.yaml";
+		 const char* TEXTURE_PATH = "Assets/Textures/Texture0.png";
+		 const char* VERTEX_SHADER_PATH = "Assets/Shaders/vertex.shader";
+		 const char* FRAGMENT_SHADER_PATH = "Assets/Shaders/fragment.shader";
 	}
 }

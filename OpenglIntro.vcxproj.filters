@@ -9,8 +9,14 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
-    <Filter Include="Shaders">
-      <UniqueIdentifier>{241b3d37-9b8c-446c-b644-ac81b3345868}</UniqueIdentifier>
+    <Filter Include="Assets">
+      <UniqueIdentifier>{1567de70-808e-48c3-bfb1-eb84255fe0e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\Shaders">
+      <UniqueIdentifier>{ff343d72-1831-48de-972a-c57c2eee5bce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\Mesh">
+      <UniqueIdentifier>{293cd48b-ee72-4eb7-adbc-624b814f098f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -33,6 +39,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\AppConfig.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MeshLoader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -58,13 +67,31 @@
     <ClInclude Include="src\AppConfig.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\MeshLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\Shaders\vertex.SHADER">
-      <Filter>Shaders</Filter>
+    <None Include="Assets\Shaders\fragment.shader">
+      <Filter>Assets\Shaders</Filter>
     </None>
-    <None Include="src\Shaders\fragment.SHADER">
-      <Filter>Shaders</Filter>
+    <None Include="Assets\Shaders\vertex.shader">
+      <Filter>Assets\Shaders</Filter>
+    </None>
+    <None Include="Assets\Mesh\Square.yaml">
+      <Filter>Assets\Mesh</Filter>
+    </None>
+    <None Include="Assets\Mesh\Cube.yaml">
+      <Filter>Assets\Mesh</Filter>
+    </None>
+    <None Include="Assets\Mesh\Pyramid.yaml">
+      <Filter>Assets\Mesh</Filter>
+    </None>
+    <None Include="Assets\Mesh\Rectangle.yaml">
+      <Filter>Assets\Mesh</Filter>
+    </None>
+    <None Include="Assets\Mesh\Triangle.yaml">
+      <Filter>Assets\Mesh</Filter>
     </None>
   </ItemGroup>
 </Project>

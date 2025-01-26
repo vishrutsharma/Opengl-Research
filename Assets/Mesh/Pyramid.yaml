@@ -1,0 +1,18 @@
+name: "Mesh_Pyramid"
+indices: [0, 1, 2, 0, 2, 3, 0, 3, 1, 1, 2, 3]
+vertices:
+  - position: [0.0, 1.0, 0.0]
+    color: [1.0, 1.0, 0.0]  # Yellow color
+    uv: [0.5, 1.0]
+  - position: [0.5, -0.5, 0.5]
+    color: [1.0, 0.0, 0.0]  # Red color
+    uv: [1.0, 0.0]
+  - position: [-0.5, -0.5, 0.5]
+    color: [0.0, 1.0, 0.0]  # Green color
+    uv: [0.0, 0.0]
+  - position: [0.5, -0.5, -0.5]
+    color: [0.0, 0.0, 1.0]  # Blue color
+    uv: [1.0, 0.0]
+  - position: [-0.5, -0.5, -0.5]
+    color: [0.5, 0.5, 0.5]  # Gray color
+    uv: [0.0, 0.0]

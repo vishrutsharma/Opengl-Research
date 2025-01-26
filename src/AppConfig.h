@@ -18,6 +18,7 @@ namespace Config
 
 	namespace PATHS
 	{
+		extern const char* MESH_PATH;
 		extern const char* TEXTURE_PATH;
 		extern const char* VERTEX_SHADER_PATH;
 		extern const char* FRAGMENT_SHADER_PATH;

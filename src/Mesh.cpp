@@ -3,20 +3,25 @@
 #include "AppConfig.h"
 
 
-Mesh::Mesh(const char* _name):VBO(0),VAO(0),EBO(0),m_scale(1),m_rotation(0)
+Mesh::Mesh(const char* meshPath):VBO(0),VAO(0),EBO(0),m_scale(1),m_rotation(0)
 {
-	name = _name;
-	AddVertex(glm::vec3(0.5f, 0.5f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f),glm::vec2(1.0f,1.0f));
-	AddVertex(glm::vec3(0.5f, -0.5f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),glm::vec2(1.0f,0.0f));
-	AddVertex(glm::vec3(-0.5f, -0.5f, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f),glm::vec2(0.0f,0.0f));
-	AddVertex(glm::vec3(-0.5f, 0.5f, 0.0f), glm::vec3(1.0f, 1.0f, 0.0f), glm::vec2(0.0f, 1.0f));
+
+	C_Mesh::Data meshData = MeshLoader::LoadMesh(meshPath);
+	if (!meshData.IsValid())
+	{
+		std::cout << "Does not have any Mesh Data" << std::endl;
+		return;
+	}
+
+	m_data = std::move(meshData);
 
 	std::vector<float> vertexData;
-	for (const Components::Vertex* v : m_vertices)
+	for (const C_Graphics::Vertex& v : m_data.vertices)
 	{
-		glm::vec3 vertices = v->position;
-		glm::vec3 colors = v->vertexColors;
-		glm::vec2 uvs = v->uvCoodinates;
+
+		glm::vec3 vertices = v.position;
+		glm::vec3 colors = v.vertexColors;
+		glm::vec2 uvs = v.uvCoodinates;
 
 		vertexData.push_back(vertices[0]);
 		vertexData.push_back(vertices[1]);
@@ -27,7 +32,6 @@ Mesh::Mesh(const char* _name):VBO(0),VAO(0),EBO(0),m_scale(1),m_rotation(0)
 		vertexData.push_back(uvs[0]);
 		vertexData.push_back(uvs[1]);
 	}
-	unsigned int indices[] = { 0,1,3,1,2,3 };
 
 	glGenVertexArrays(1, &VAO);
 	glBindVertexArray(VAO);
@@ -38,7 +42,7 @@ Mesh::Mesh(const char* _name):VBO(0),VAO(0),EBO(0),m_scale(1),m_rotation(0)
 	glBufferData(GL_ARRAY_BUFFER, vertexData.size() * sizeof(float), vertexData.data(), GL_STATIC_DRAW);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(m_data.indices), m_data.indices.data(), GL_STATIC_DRAW);
 	
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
@@ -50,14 +54,6 @@ Mesh::Mesh(const char* _name):VBO(0),VAO(0),EBO(0),m_scale(1),m_rotation(0)
 	glEnableVertexAttribArray(2);
 }
 
-void Mesh::AddVertex(const glm::vec3 vector,const glm::vec3 colors,const glm::vec2 uvCoords)
-{
-	Components::Vertex* v = new Components::Vertex();
-	v->position = vector;
-	v->vertexColors = colors;
-	v->uvCoodinates = uvCoords;
-	m_vertices.push_back(v);
-}
 
 void Mesh::Render()
 {
@@ -83,7 +79,7 @@ void Mesh::SET_TRANSFORMATION_MATRIX()
 	glm::mat4 modelMatrix = glm::mat4(1.0f);
 	glm::mat4 viewMatrix = glm::mat4(1.0f);
 	glm::mat4 projectionMatrix = glm::mat4(1.0f);
-	//modelMatrix = glm::translate(modelMatrix, m_position);
+	modelMatrix = glm::translate(modelMatrix, m_position);
 	modelMatrix = glm::rotate(modelMatrix, m_rotation, glm::vec3(1.0, 0.0, 0.0));
 	//modelMatrix = glm::scale(modelMatrix, glm::vec3(1, 1, 1) * (m_scale));
 	
