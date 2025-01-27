@@ -42,7 +42,7 @@ Mesh::Mesh(const char* meshPath):VBO(0),VAO(0),EBO(0),m_scale(1),m_rotation(0)
 	glBufferData(GL_ARRAY_BUFFER, vertexData.size() * sizeof(float), vertexData.data(), GL_STATIC_DRAW);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(m_data.indices), m_data.indices.data(), GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER,m_data.indices.size() * sizeof(unsigned int), m_data.indices.data(), GL_STATIC_DRAW);
 	
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
@@ -64,14 +64,14 @@ void Mesh::Render()
 	
 	SET_TRANSFORMATION_MATRIX();
 	glBindVertexArray(VAO);
-	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+	glDrawElements(GL_TRIANGLES,m_data.indices.size(), GL_UNSIGNED_INT, 0);
+
 }
 
 void Mesh::Update()
 {
 	float time = glfwGetTime();
 	SetRotation(time);
-	SetScale(glm::sin(time));
 }
 
 void Mesh::SET_TRANSFORMATION_MATRIX()
@@ -81,7 +81,7 @@ void Mesh::SET_TRANSFORMATION_MATRIX()
 	glm::mat4 projectionMatrix = glm::mat4(1.0f);
 	modelMatrix = glm::translate(modelMatrix, m_position);
 	modelMatrix = glm::rotate(modelMatrix, m_rotation, glm::vec3(1.0, 0.0, 0.0));
-	//modelMatrix = glm::scale(modelMatrix, glm::vec3(1, 1, 1) * (m_scale));
+	modelMatrix = glm::scale(modelMatrix, glm::vec3(1, 1, 1) * (m_scale));
 	
 	viewMatrix = glm::translate(viewMatrix, glm::vec3(0.0, 0.0, -3.0));
 	projectionMatrix = glm::perspective(glm::radians(Config::CAMERA::FOV),

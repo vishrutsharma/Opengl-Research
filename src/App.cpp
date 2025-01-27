@@ -2,6 +2,7 @@
 #include "Mesh.h"
 #include "Texture.h"
 #include "AppConfig.h"
+#include "Utils.h"
 
 
 GLFWwindow* App::CreateAppWindow()
@@ -17,13 +18,23 @@ App::App()
 
 void App::Init()
 {
-	Mesh* m = new Mesh(Config::PATHS::MESH_PATH);
-	Texture2D* t = new Texture2D();
-	t->LoadTexture(Config::PATHS::TEXTURE_PATH);
-	Shader* s = new Shader(Config::PATHS::VERTEX_SHADER_PATH, Config::PATHS::FRAGMENT_SHADER_PATH);
-	m->SetTexture(t);
-	m->SetShader(s);
-	m_meshes.push_back(m);
+	const int CUBE_SIZE = 250;
+	for (int i = 0; i < CUBE_SIZE; i++)
+	{
+		Mesh* m = new Mesh(Config::PATHS::MESH_PATH);
+		Texture2D* t = new Texture2D();
+		t->LoadTexture(Config::PATHS::TEXTURE_PATH);
+		Shader* s = new Shader(Config::PATHS::VERTEX_SHADER_PATH, Config::PATHS::FRAGMENT_SHADER_PATH);
+		m->SetTexture(t);
+		m->SetShader(s);
+		m_meshes.push_back(m);
+		float rx = Utils::GET_RANDOM_NUMBER(-3.0, 3.0);
+		float ry = Utils::GET_RANDOM_NUMBER(-3.0, 3.0);
+		float rz = -Utils::GET_RANDOM_NUMBER(3.0, 80.0);
+		float rscale = Utils::GET_RANDOM_NUMBER(0.2, 0.8);
+		m->SetPosition(glm::vec3(rx,ry,rz));
+		m->SetScale(rscale);	
+	}
 }
 
 void App::ProcessInput()

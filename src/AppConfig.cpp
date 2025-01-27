@@ -18,7 +18,7 @@ namespace Config
 
 	namespace PATHS
 	{
-		 const char* MESH_PATH = "Assets/Mesh/Rectangle.yaml";
+		 const char* MESH_PATH = "Assets/Mesh/Cube.yaml";
 		 const char* TEXTURE_PATH = "Assets/Textures/Texture0.png";
 		 const char* VERTEX_SHADER_PATH = "Assets/Shaders/vertex.shader";
 		 const char* FRAGMENT_SHADER_PATH = "Assets/Shaders/fragment.shader";
