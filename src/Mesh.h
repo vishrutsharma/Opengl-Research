@@ -10,6 +10,7 @@
 #include "Shader.h"
 #include "Texture.h"
 #include "MeshLoader.h"
+#include "Camera.h"
 
 class Mesh
 {

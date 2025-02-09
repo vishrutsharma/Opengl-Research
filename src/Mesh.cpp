@@ -77,13 +77,11 @@ void Mesh::Update()
 void Mesh::SET_TRANSFORMATION_MATRIX()
 {
 	glm::mat4 modelMatrix = glm::mat4(1.0f);
-	glm::mat4 viewMatrix = glm::mat4(1.0f);
 	glm::mat4 projectionMatrix = glm::mat4(1.0f);
 	modelMatrix = glm::translate(modelMatrix, m_position);
 	modelMatrix = glm::rotate(modelMatrix, m_rotation, glm::vec3(1.0, 0.0, 0.0));
 	modelMatrix = glm::scale(modelMatrix, glm::vec3(1, 1, 1) * (m_scale));
-	
-	viewMatrix = glm::translate(viewMatrix, glm::vec3(0.0, 0.0, -3.0));
+
 	projectionMatrix = glm::perspective(glm::radians(Config::CAMERA::FOV),
 		(float)Config::WINDOW::SCREEN_WIDTH /(float) Config::WINDOW::SCREEN_HEIGHT,
 		Config::CAMERA::NEAR_CLIP_PLANE, 
@@ -94,7 +92,7 @@ void Mesh::SET_TRANSFORMATION_MATRIX()
 	unsigned int projectionLocation = glGetUniformLocation(m_shader->ID, "projection");
 
 	glad_glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(modelMatrix));
-	glad_glUniformMatrix4fv(viewLocation, 1, GL_FALSE, glm::value_ptr(viewMatrix));
+	glad_glUniformMatrix4fv(viewLocation, 1, GL_FALSE, glm::value_ptr(Camera::GetInstance().GetViewMatrix()));
 	glad_glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
 }
 

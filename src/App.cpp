@@ -5,19 +5,30 @@
 #include "Utils.h"
 #include "Camera.h"
 
+
+using namespace InputSystem;
+
 GLFWwindow* App::CreateAppWindow()
 {
 	m_window = glfwCreateWindow(Config::WINDOW::SCREEN_WIDTH, Config::WINDOW::SCREEN_HEIGHT, Config::WINDOW::WINDOW_TITLE, NULL, NULL);
 	return m_window;
 }
 
-App::App()
-{
-	
-}
+App::App() {}
 
 void App::Init()
 {
+	m_inputManager = new InputManager(m_window);
+	m_keyBindings = new KeyBindings();
+	glfwSetWindowUserPointer(m_window,m_inputManager);
+	m_keyBindings->BindKey(GLFW_KEY_W,Action::MOVE_FORWARD);
+	if (m_keyBindings->IsActionTriggered(Action::MOVE_BACKWARD,m_inputManager))
+	{
+
+	}
+
+
+
 	const int CUBE_SIZE = 250;
 	for (int i = 0; i < CUBE_SIZE; i++)
 	{
@@ -63,8 +74,11 @@ void App::Render()
 
 void App::Update()
 {
-	if (m_meshes.size() == 0) return;
+	Camera::GetInstance().Update();
+	m_inputManager->Update();
 
+	
+	if (m_meshes.size() == 0) return;
 	for (Mesh* m : m_meshes)
 	{
 		m->Update();

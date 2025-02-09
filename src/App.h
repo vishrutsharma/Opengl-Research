@@ -1,6 +1,8 @@
 #pragma once
 #include <glad\glad.h>
 #include <GLFW\glfw3.h>
+#include "InputManager.h"
+#include "KeyBindings.h"
 #include <vector>
 
 class Mesh;
@@ -21,6 +23,9 @@ public:
 
 private:
 	GLFWwindow* m_window = nullptr;
+	InputManager* m_inputManager = nullptr;
+	KeyBindings* m_keyBindings = nullptr;
+
 	std::vector<Mesh*> m_meshes;
 
 };

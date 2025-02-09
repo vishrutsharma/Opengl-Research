@@ -1,21 +1,28 @@
 #pragma once
-#include <glm.hpp>
 #include "Singleton.h"
+#include <glad\glad.h>
+#include <GLFW\glfw3.h>
+#include <glm.hpp>
+#include <gtc/matrix_transform.hpp>
 
 class Camera : public Singleton<Camera>
 {
-
 public:
-	const glm::vec3 GetPosition();
-	const glm::vec3 GetDirection();
-	void SetPosition(glm::vec3& pos);
-	void SetDirection(glm::vec3& dir);
-	void Init();
+	inline const glm::vec3 GetPosition() { return m_pos; }
+	inline const glm::vec3 GetForward() { return m_direction; }
+	inline const glm::vec3 GetRight() { return m_rightVector; }
+	inline const glm::vec3 GetUp() { return m_upVector; }
+	inline const glm::mat4 GetViewMatrix() { return m_lookAtMat;}
+	inline void SetPosition(const glm::vec3& pos) { m_pos = pos; }
+
+	void Update();
 
 private:
+	friend class Singleton<Camera>;
 	Camera();
 	glm::vec3 m_pos;
 	glm::vec3 m_direction;
 	glm::vec3 m_upVector;
 	glm::vec3 m_rightVector;
+	glm::mat4 m_lookAtMat;
 };
