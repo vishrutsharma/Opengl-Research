@@ -9,6 +9,11 @@ namespace Config
 		extern const char* WINDOW_TITLE;
 	}
 
+	namespace INPUT
+	{
+		extern const int SCROLL_SPEED;
+	}
+
 	namespace CAMERA
 	{
 		extern const  float FOV ;

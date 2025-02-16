@@ -145,6 +145,7 @@
     <ClCompile Include="src\MeshLoader.cpp" />
     <ClCompile Include="src\Shader.cpp" />
     <ClCompile Include="src\Texture.cpp" />
+    <ClCompile Include="src\Time.cpp" />
     <ClCompile Include="src\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -161,6 +162,7 @@
     <ClInclude Include="src\Shader.h" />
     <ClInclude Include="src\Singleton.h" />
     <ClInclude Include="src\Texture.h" />
+    <ClInclude Include="src\Time.h" />
     <ClInclude Include="src\Utils.h" />
   </ItemGroup>
   <ItemGroup>

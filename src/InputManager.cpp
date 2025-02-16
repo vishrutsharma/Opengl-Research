@@ -1,6 +1,8 @@
 #include "InputManager.h"
 using namespace InputSystem;
 
+#include <iostream>
+
 InputManager::InputManager(GLFWwindow* window) :m_window(window),m_mouseXPos(0),m_mouseYPos(0)
 {
 	glfwSetKeyCallback(m_window, KeyCallback);
@@ -10,10 +12,10 @@ InputManager::InputManager(GLFWwindow* window) :m_window(window),m_mouseXPos(0),
 
 void InputManager::Update()
 {
-	for (auto& [key,state] : m_keyStates)
+	/*for (auto& [key,state] : m_keyStates)
 	{
 		m_prevStates[key] = state;
-	}
+	}*/
 }
 
 bool InputManager::IsKeyPressed(int keyCode)
@@ -48,9 +50,13 @@ void InputManager::KeyCallback(GLFWwindow* window, int key, int scancode, int ac
     if (!input) return;
 
     if (action == GLFW_PRESS)
+    {
         input->m_keyStates[key] = true;
+    }
     else if (action == GLFW_RELEASE)
+    {
         input->m_keyStates[key] = false;
+    }
 }
 
 void InputManager::MouseButtonCallback(GLFWwindow* window, int button, int action, int mods) {

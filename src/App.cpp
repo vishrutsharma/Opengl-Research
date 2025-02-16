@@ -4,6 +4,7 @@
 #include "AppConfig.h"
 #include "Utils.h"
 #include "Camera.h"
+#include "Time.h"
 
 
 using namespace InputSystem;
@@ -14,21 +15,19 @@ GLFWwindow* App::CreateAppWindow()
 	return m_window;
 }
 
-App::App() {}
+App::App() : m_framesSampleCount(0),m_frames(0),m_elapsedTime(0){}
 
 void App::Init()
 {
+	m_elapsedTime = Time::GetInstance().GetTimeSinceStart();
 	m_inputManager = new InputManager(m_window);
 	m_keyBindings = new KeyBindings();
 	glfwSetWindowUserPointer(m_window,m_inputManager);
 	m_keyBindings->BindKey(GLFW_KEY_W,Action::MOVE_FORWARD);
-	if (m_keyBindings->IsActionTriggered(Action::MOVE_BACKWARD,m_inputManager))
-	{
-
-	}
-
-
-
+	m_keyBindings->BindKey(GLFW_KEY_A, Action::MOVE_LEFT);
+	m_keyBindings->BindKey(GLFW_KEY_D, Action::MOVE_RIGHT);
+	m_keyBindings->BindKey(GLFW_KEY_S, Action::MOVE_BACKWARD);
+	
 	const int CUBE_SIZE = 250;
 	for (int i = 0; i < CUBE_SIZE; i++)
 	{
@@ -53,6 +52,22 @@ void App::ProcessInput()
 {
 	if (m_window == nullptr) return;
 
+	if (m_keyBindings->IsActionTriggered(Action::MOVE_FORWARD, m_inputManager))
+	{
+		Camera::GetInstance().MoveCamera(Action::MOVE_FORWARD);
+	}
+	if (m_keyBindings->IsActionTriggered(Action::MOVE_BACKWARD, m_inputManager))
+	{
+		Camera::GetInstance().MoveCamera(Action::MOVE_BACKWARD);
+	}
+	if (m_keyBindings->IsActionTriggered(Action::MOVE_LEFT, m_inputManager))
+	{
+		Camera::GetInstance().MoveCamera(Action::MOVE_LEFT);
+	}
+	if (m_keyBindings->IsActionTriggered(Action::MOVE_RIGHT, m_inputManager))
+	{
+		Camera::GetInstance().MoveCamera(Action::MOVE_RIGHT);
+	}
 	if (glfwGetKey(m_window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 	{
 		glfwSetWindowShouldClose(m_window, true);
@@ -61,7 +76,7 @@ void App::ProcessInput()
 
 void App::Render()
 {
-	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	if (m_meshes.size() == 0) return;
@@ -72,12 +87,27 @@ void App::Render()
 	}
 }
 
+void App::CalculateFPS()
+{
+	float deltaTime = Time::GetInstance().GetDeltaTime();
+	m_elapsedTime += deltaTime;
+	m_framesSampleCount++;
+
+	if (m_elapsedTime >= 1.0f)
+	{
+		m_frames = m_framesSampleCount;
+		m_framesSampleCount = 0;
+		m_elapsedTime = 0.0f;
+	}	
+}
+
 void App::Update()
 {
-	Camera::GetInstance().Update();
 	m_inputManager->Update();
+	Camera::GetInstance().Update();
+	Time::GetInstance().Update();
+	CalculateFPS();
 
-	
 	if (m_meshes.size() == 0) return;
 	for (Mesh* m : m_meshes)
 	{

@@ -9,6 +9,11 @@ namespace Config
 		const char* WINDOW_TITLE = "Opengl Boilerplate";
 	}
 
+	namespace INPUT
+	{
+		const int SCROLL_SPEED = 10;
+	}
+
 	namespace CAMERA
 	{
 		 const  float FOV = 45.0;

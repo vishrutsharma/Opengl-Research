@@ -59,6 +59,9 @@
     <ClCompile Include="src\KeyBindings.cpp">
       <Filter>InputSystem</Filter>
     </ClCompile>
+    <ClCompile Include="src\Time.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\App.h">
@@ -102,6 +105,9 @@
     </ClInclude>
     <ClInclude Include="src\Actions.h">
       <Filter>InputSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Time.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
