@@ -1,4 +1,5 @@
 #pragma once
+#include <glm.hpp>
 #include <random>
 
 namespace Utils
@@ -17,4 +18,7 @@ namespace Utils
             return dist(gen);
         }
     }
+
+    glm::vec3 GetDirectionFromAxis(float x, float y);
+    
 }

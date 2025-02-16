@@ -11,7 +11,7 @@ namespace Config
 
 	namespace INPUT
 	{
-		const int SCROLL_SPEED = 10;
+		const float MOUSE_SENSITIVITY = 0.1f;
 	}
 
 	namespace CAMERA

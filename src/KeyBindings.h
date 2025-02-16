@@ -10,7 +10,7 @@ namespace InputSystem
 	public:
 		KeyBindings();
 		void BindKey(int, Action);
-		const int GetBoundKey(Action);
+		int GetBoundKey(Action);
 		bool IsActionTriggered(Action,InputManager*);
 
 	private:

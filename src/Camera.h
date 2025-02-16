@@ -9,11 +9,12 @@
 class Camera : public Singleton<Camera>
 {
 public:
-	inline const glm::vec3 GetPosition() { return m_pos; }
-	inline const glm::vec3 GetForward() { return m_forwardVector; }
-	inline const glm::mat4 GetViewMatrix() { return m_lookAtMat;}
+	inline glm::vec3 GetPosition() { return m_pos; }
+	inline glm::vec3 GetForward() { return m_forwardVector; }
+	inline glm::mat4 GetViewMatrix() { return m_lookAtMat;}
 	inline void SetPosition(const glm::vec3& pos) { m_pos = pos; }
-	const glm::vec3 GET_RIGHT();
+	inline void SetForward(const glm::vec3& dir) { m_forwardVector = glm::normalize(dir); }
+	glm::vec3 GET_RIGHT();
 	void MoveCamera(InputSystem::Action action);
 	void Update();
 

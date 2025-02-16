@@ -11,7 +11,7 @@ namespace Config
 
 	namespace INPUT
 	{
-		extern const int SCROLL_SPEED;
+		extern const float MOUSE_SENSITIVITY;
 	}
 
 	namespace CAMERA

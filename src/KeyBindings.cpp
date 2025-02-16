@@ -11,7 +11,7 @@ void KeyBindings::BindKey(int key, Action action)
 	m_mappings.insert(std::make_pair(action, key));
 }
 
-const int KeyBindings::GetBoundKey(Action action)
+int KeyBindings::GetBoundKey(Action action)
 {
 	auto it = m_mappings.find(action);
 	return it != m_mappings.end() ? it->second : -1;

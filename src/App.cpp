@@ -15,7 +15,13 @@ GLFWwindow* App::CreateAppWindow()
 	return m_window;
 }
 
-App::App() : m_framesSampleCount(0),m_frames(0),m_elapsedTime(0){}
+App::App() : m_framesSampleCount(0),
+			m_frames(0),
+			m_elapsedTime(0),
+			m_lastMouseXPos(0),
+			m_lastMouseYPos(0),
+			m_mousePitch(0),
+			m_mouseYaw(-90.0f){}
 
 void App::Init()
 {
@@ -52,6 +58,7 @@ void App::ProcessInput()
 {
 	if (m_window == nullptr) return;
 
+	// ------------------------- KEYBOARD --------------------------------------
 	if (m_keyBindings->IsActionTriggered(Action::MOVE_FORWARD, m_inputManager))
 	{
 		Camera::GetInstance().MoveCamera(Action::MOVE_FORWARD);
@@ -72,6 +79,30 @@ void App::ProcessInput()
 	{
 		glfwSetWindowShouldClose(m_window, true);
 	}
+
+
+
+	// -------------------------- MOUSE -------------------------------------------
+
+
+	int mouseXPos = 0;
+	int mouseYPos = 0;
+	m_inputManager->GetMousePosition(mouseXPos, mouseYPos);
+
+	float diffX = mouseXPos - m_lastMouseXPos;
+	float diffY = m_lastMouseYPos - mouseYPos ;
+
+	m_lastMouseXPos = mouseXPos;
+	m_lastMouseYPos = mouseYPos;
+	diffX *= Config::INPUT::MOUSE_SENSITIVITY;
+	diffY *= Config::INPUT::MOUSE_SENSITIVITY;
+
+	m_mousePitch += diffY;
+	m_mouseYaw += diffX;
+
+	const float pitchClamp = 89.0f;
+	m_mousePitch = std::clamp(m_mousePitch, -89.0f, 89.0f);
+	Camera::GetInstance().SetForward(Utils::GetDirectionFromAxis(m_mouseYaw,m_mousePitch));
 }
 
 void App::Render()

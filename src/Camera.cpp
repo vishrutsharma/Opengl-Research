@@ -39,7 +39,7 @@ void Camera::MoveCamera(InputSystem::Action action)
 	}
 }
 
-const glm::vec3 Camera::GET_RIGHT()
+glm::vec3 Camera::GET_RIGHT()
 {
 	return glm::normalize(glm::cross(m_forwardVector, m_upVector));
 }

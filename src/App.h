@@ -34,5 +34,9 @@ private:
 	int m_framesSampleCount;
 	int m_frames;
 	float m_elapsedTime;
+	int m_lastMouseXPos;
+	int m_lastMouseYPos;
+	float m_mouseYaw;
+	float m_mousePitch;
 
 };
