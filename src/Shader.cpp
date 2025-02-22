@@ -75,6 +75,11 @@ int Shader::GetUniformLocation(const std::string& value)
 	return glGetUniformLocation(ID, value.c_str());
 }
 
+void Shader::SetVec3(const std::string& name, glm::vec3 color)
+{
+	glUniform3fv(glGetUniformLocation(ID, name.c_str()), 1, &color[0]);
+}
+
 void Shader::CheckForErrors(unsigned int shader, std::string type)
 {
 	int success;

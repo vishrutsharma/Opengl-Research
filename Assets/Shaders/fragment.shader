@@ -5,9 +5,11 @@ in vec2 uvCords;
 in vec4 vertexColor;
 
 uniform sampler2D ourTexture;
+uniform vec3 objectColor;
+uniform vec3 lightColor;
 
 void main()
 {
-	FragColor = vertexColor;
-	//FragColor = texture(ourTexture,uvCords);
+	FragColor = vec4(objectColor,1.0);
+	//FragColor = vertexColor;
 }

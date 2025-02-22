@@ -1,6 +1,7 @@
 #include "Mesh.h"
 #include <iostream>
 #include "AppConfig.h"
+#include "Colors.h"
 
 
 Mesh::Mesh(const char* meshPath):VBO(0),VAO(0),EBO(0),m_scale(1),m_rotation(0)
@@ -14,6 +15,7 @@ Mesh::Mesh(const char* meshPath):VBO(0),VAO(0),EBO(0),m_scale(1),m_rotation(0)
 	}
 
 	m_data = std::move(meshData);
+	m_color = GetVec3Color(Color::White);
 
 	std::vector<float> vertexData;
 	for (const C_Graphics::Vertex& v : m_data.vertices)
@@ -60,6 +62,7 @@ void Mesh::Render()
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, m_texture->ID);
 	glUseProgram(m_shader->ID);
+	m_shader->SetVec3("objectColor", m_color);
 	glUniform1i(glGetUniformLocation(m_shader->ID, "ourTexture"), 0);
 	
 	SET_TRANSFORMATION_MATRIX();
@@ -82,6 +85,7 @@ void Mesh::SET_TRANSFORMATION_MATRIX()
 	modelMatrix = glm::rotate(modelMatrix, m_rotation, glm::vec3(1.0, 0.0, 0.0));
 	modelMatrix = glm::scale(modelMatrix, glm::vec3(1, 1, 1) * (m_scale));
 
+	//Configure it inside Camera Class
 	projectionMatrix = glm::perspective(glm::radians(Config::CAMERA::FOV),
 		(float)Config::WINDOW::SCREEN_WIDTH /(float) Config::WINDOW::SCREEN_HEIGHT,
 		Config::CAMERA::NEAR_CLIP_PLANE, 

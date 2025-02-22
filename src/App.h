@@ -31,6 +31,7 @@ private:
 	KeyBindings* m_keyBindings = nullptr;
 
 	std::vector<Mesh*> m_meshes;
+	Mesh* m_light;
 	int m_framesSampleCount;
 	int m_frames;
 	float m_elapsedTime;

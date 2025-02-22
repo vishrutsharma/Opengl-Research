@@ -4,8 +4,8 @@ namespace Config
 {
 	namespace WINDOW
 	{
-		const int SCREEN_WIDTH = 800;
-		const int SCREEN_HEIGHT = 800;
+		const int SCREEN_WIDTH = 1920;
+		const int SCREEN_HEIGHT = 1080;
 		const char* WINDOW_TITLE = "Opengl Boilerplate";
 	}
 
@@ -24,6 +24,7 @@ namespace Config
 	namespace PATHS
 	{
 		 const char* MESH_PATH = "Assets/Mesh/Cube.yaml";
+		 const char* LIGHT_MESH_PATH = "Assets/Mesh/Square.yaml";
 		 const char* TEXTURE_PATH = "Assets/Textures/Texture0.png";
 		 const char* VERTEX_SHADER_PATH = "Assets/Shaders/vertex.shader";
 		 const char* FRAGMENT_SHADER_PATH = "Assets/Shaders/fragment.shader";

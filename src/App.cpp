@@ -5,6 +5,7 @@
 #include "Utils.h"
 #include "Camera.h"
 #include "Time.h"
+#include "Colors.h"
 
 
 using namespace InputSystem;
@@ -33,6 +34,8 @@ void App::Init()
 	m_keyBindings->BindKey(GLFW_KEY_A, Action::MOVE_LEFT);
 	m_keyBindings->BindKey(GLFW_KEY_D, Action::MOVE_RIGHT);
 	m_keyBindings->BindKey(GLFW_KEY_S, Action::MOVE_BACKWARD);
+
+	//Init Meshes
 	
 	const int CUBE_SIZE = 250;
 	for (int i = 0; i < CUBE_SIZE; i++)
@@ -51,7 +54,19 @@ void App::Init()
 		float rscale = Utils::GET_RANDOM_NUMBER(0.2, 0.8);
 		m->SetPosition(glm::vec3(rx,ry,rz));
 		m->SetScale(rscale);	
+		m->SetColor(GetVec3Color(Color::Pink));
 	}
+
+	//Init Light
+	m_light = new Mesh(Config::PATHS::MESH_PATH);
+	Shader* s = new Shader(Config::PATHS::VERTEX_SHADER_PATH, Config::PATHS::FRAGMENT_SHADER_PATH);
+	Texture2D* t = new Texture2D();
+	t->LoadTexture(Config::PATHS::TEXTURE_PATH);
+	m_light->SetTexture(t);
+	m_light->SetShader(s);
+	m_light->SetPosition(glm::vec3(15.0, 5.0, -25.0));
+	m_light->SetScale(5.0);
+	m_light->SetColor(GetVec3Color(Color::Red));
 }
 
 void App::ProcessInput()
@@ -112,6 +127,9 @@ void App::Render()
 
 	if (m_meshes.size() == 0) return;
 
+	if (m_light != nullptr)
+		m_light->Render();
+
 	for (Mesh* m : m_meshes)
 	{
 		m->Render();
@@ -138,6 +156,8 @@ void App::Update()
 	Camera::GetInstance().Update();
 	Time::GetInstance().Update();
 	CalculateFPS();
+	if (m_light != nullptr)
+		m_light->Update();
 
 	if (m_meshes.size() == 0) return;
 	for (Mesh* m : m_meshes)
@@ -152,6 +172,8 @@ App::~App()
 	{
 		delete m;
 	}
+
+	delete m_light;
 
 	delete m_window;
 }
