@@ -6,6 +6,7 @@
 #include "Camera.h"
 #include "Time.h"
 #include "Colors.h"
+#include "Scene.h"
 
 
 using namespace InputSystem;
@@ -52,9 +53,11 @@ void App::Init()
 		float ry = Utils::GET_RANDOM_NUMBER(-4.0, 4.0);
 		float rz = -Utils::GET_RANDOM_NUMBER(4.0, 180.0);
 		float rscale = Utils::GET_RANDOM_NUMBER(0.2, 0.8);
-		m->SetPosition(glm::vec3(rx,ry,rz));
+		glm::vec3 pos = glm::vec3(rx, ry, rz);
+		m->SetPosition(pos);
 		m->SetScale(rscale);	
-		m->SetColor(GetVec3Color(Color::Pink));
+		glm::vec3 color = GetVec3Color(Color::White);
+		m->SetColor(color);
 	}
 
 	//Init Light
@@ -64,9 +67,12 @@ void App::Init()
 	t->LoadTexture(Config::PATHS::TEXTURE_PATH);
 	m_light->SetTexture(t);
 	m_light->SetShader(s);
-	m_light->SetPosition(glm::vec3(15.0, 5.0, -25.0));
+	glm::vec3 pos = glm::vec3(15.0, 5.0, -25.0);
+	m_light->SetPosition(pos);
 	m_light->SetScale(5.0);
-	m_light->SetColor(GetVec3Color(Color::Red));
+	glm::vec3 color = GetVec3Color(Color::Yellow);
+	m_light->SetColor(color);
+	Scene::GetInstance().SetLight(m_light);
 }
 
 void App::ProcessInput()

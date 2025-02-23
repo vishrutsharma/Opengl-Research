@@ -2,6 +2,7 @@
 #include <iostream>
 #include "AppConfig.h"
 #include "Colors.h"
+#include "Scene.h"
 
 
 Mesh::Mesh(const char* meshPath):VBO(0),VAO(0),EBO(0),m_scale(1),m_rotation(0)
@@ -63,6 +64,9 @@ void Mesh::Render()
 	glBindTexture(GL_TEXTURE_2D, m_texture->ID);
 	glUseProgram(m_shader->ID);
 	m_shader->SetVec3("objectColor", m_color);
+	m_shader->SetVec3("lightColor", Scene::GetInstance().GetLight()->GetColor());
+	m_shader->SetVec3("ambientColor", Scene::GetInstance().GetAmbientColor());
+
 	glUniform1i(glGetUniformLocation(m_shader->ID, "ourTexture"), 0);
 	
 	SET_TRANSFORMATION_MATRIX();

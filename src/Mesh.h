@@ -30,13 +30,15 @@ private:
 
 public:
 	Mesh(const char* path);
-	inline void SetPosition(glm::vec3 pos) { m_position = pos; }
+	inline void SetPosition(glm::vec3& pos) { m_position = pos; }
+	inline const glm::vec3& GetPosition() { return m_position; }
 	inline void SetRotation(const float degree) { m_rotation = degree; }
 	inline void SetScale(const float scale) { m_scale = scale; }
 	inline void SetShader(Shader* shader) { m_shader = shader; }
 	inline void SetTexture(Texture2D* texture) { m_texture = texture; }
 	inline const C_Mesh::Data& GetData() { return m_data; }
-	inline void SetColor(glm::vec3 color) { m_color = color; }
+	inline void SetColor(glm::vec3& color) { m_color = color; }
+	inline const glm::vec3& GetColor() { return m_color;}
 	void Update();
 	void Render();
 	~Mesh();
