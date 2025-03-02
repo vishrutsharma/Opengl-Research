@@ -4,6 +4,8 @@
 #include "InputManager.h"
 #include "KeyBindings.h"
 #include <vector>
+#include "GameObject.h"
+#include "BaseObject.h"
 
 class Mesh;
 
@@ -30,8 +32,8 @@ private:
 	InputManager* m_inputManager = nullptr;
 	KeyBindings* m_keyBindings = nullptr;
 
-	std::vector<Mesh*> m_meshes;
-	Mesh* m_light;
+	std::vector<GameObject*> m_gameObjects;
+	GameObject* m_light;
 	int m_framesSampleCount;
 	int m_frames;
 	float m_elapsedTime;

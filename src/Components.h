@@ -9,6 +9,7 @@
 			glm::vec3 position;
 			glm::vec3 vertexColors;
 			glm::vec2 uvCoodinates;
+			glm::vec3 vertexNormals;
 		};
 	}
 	

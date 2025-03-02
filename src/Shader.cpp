@@ -8,7 +8,6 @@ Shader::Shader(const char* vPath,const char* fPath)
 	std::ifstream fShaderFile;
 	vShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
 	fShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
-
 	try
 	{
 		vShaderFile.open(vPath);

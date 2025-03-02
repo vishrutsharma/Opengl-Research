@@ -24,9 +24,11 @@ namespace Config
 	namespace PATHS
 	{
 		 const char* MESH_PATH = "Assets/Mesh/Cube.yaml";
-		 const char* LIGHT_MESH_PATH = "Assets/Mesh/Square.yaml";
+		 const char* LIGHT_MESH_PATH = "Assets/Mesh/Cube.yaml";
 		 const char* TEXTURE_PATH = "Assets/Textures/Texture0.png";
 		 const char* VERTEX_SHADER_PATH = "Assets/Shaders/vertex.shader";
 		 const char* FRAGMENT_SHADER_PATH = "Assets/Shaders/fragment.shader";
+		 const char* LIGHT_VERTEX_SHADER_PATH = "Assets/Shaders/light_vertex.shader";
+		 const char* LIGHT_FRAGMENT_SHADER_PATH = "Assets/Shaders/light_fragment.shader";
 	}
 }

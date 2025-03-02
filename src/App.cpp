@@ -35,43 +35,35 @@ void App::Init()
 	m_keyBindings->BindKey(GLFW_KEY_A, Action::MOVE_LEFT);
 	m_keyBindings->BindKey(GLFW_KEY_D, Action::MOVE_RIGHT);
 	m_keyBindings->BindKey(GLFW_KEY_S, Action::MOVE_BACKWARD);
-
-	//Init Meshes
 	
-	const int CUBE_SIZE = 250;
-	for (int i = 0; i < CUBE_SIZE; i++)
+	const int OBJECT_SIZE = 250;
+	for (int i = 0; i < OBJECT_SIZE; i++)
 	{
-		Mesh* m = new Mesh(Config::PATHS::MESH_PATH);
-		Texture2D* t = new Texture2D();
-		t->LoadTexture(Config::PATHS::TEXTURE_PATH);
-		Shader* s = new Shader(Config::PATHS::VERTEX_SHADER_PATH, Config::PATHS::FRAGMENT_SHADER_PATH);
-		m->SetTexture(t);
-		m->SetShader(s);          
-				
-		m_meshes.push_back(m);
+		GameObject* gObject = new GameObject("GameObject_"+std::to_string(i));
+		gObject->AddMeshComponent(Config::PATHS::MESH_PATH);
+		gObject->AddMaterialComponent(GetVec3Color(Color::White),Config::PATHS::VERTEX_SHADER_PATH,Config::PATHS::FRAGMENT_SHADER_PATH);
+
 		float rx = Utils::GET_RANDOM_NUMBER(-4.0, 4.0);
 		float ry = Utils::GET_RANDOM_NUMBER(-4.0, 4.0);
 		float rz = -Utils::GET_RANDOM_NUMBER(4.0, 180.0);
-		float rscale = Utils::GET_RANDOM_NUMBER(0.2, 0.8);
 		glm::vec3 pos = glm::vec3(rx, ry, rz);
-		m->SetPosition(pos);
-		m->SetScale(rscale);	
-		glm::vec3 color = GetVec3Color(Color::White);
-		m->SetColor(color);
+		float rScale = Utils::GET_RANDOM_NUMBER(0.2, 0.8);
+		
+		gObject->SetPosition(pos); 
+		gObject->SetScale(glm::vec3(rScale, rScale, rScale));
+		m_gameObjects.push_back(gObject);
 	}
 
 	//Init Light
-	m_light = new Mesh(Config::PATHS::MESH_PATH);
-	Shader* s = new Shader(Config::PATHS::VERTEX_SHADER_PATH, Config::PATHS::FRAGMENT_SHADER_PATH);
-	Texture2D* t = new Texture2D();
-	t->LoadTexture(Config::PATHS::TEXTURE_PATH);
-	m_light->SetTexture(t);
-	m_light->SetShader(s);
-	glm::vec3 pos = glm::vec3(15.0, 5.0, -25.0);
-	m_light->SetPosition(pos);
-	m_light->SetScale(5.0);
-	glm::vec3 color = GetVec3Color(Color::Yellow);
-	m_light->SetColor(color);
+	m_light = new GameObject("Light");
+	m_light->AddMeshComponent(Config::PATHS::LIGHT_MESH_PATH);
+	m_light->AddMaterialComponent(GetVec3Color(Color::Yellow), Config::PATHS::LIGHT_VERTEX_SHADER_PATH, Config::PATHS::LIGHT_FRAGMENT_SHADER_PATH);
+	
+	
+	m_light->SetPosition(glm::vec3(15.0, 5.0, -25.0));
+	
+	m_light->SetScale(glm::vec3(5.5, 5.5, 5.5));
+	m_light->SetAsLightCaster(true);
 	Scene::GetInstance().SetLight(m_light);
 }
 
@@ -110,13 +102,13 @@ void App::ProcessInput()
 	int mouseYPos = 0;
 	m_inputManager->GetMousePosition(mouseXPos, mouseYPos);
 
-	float diffX = mouseXPos - m_lastMouseXPos;
-	float diffY = m_lastMouseYPos - mouseYPos ;
+	int diffX = mouseXPos - m_lastMouseXPos;
+	int diffY = m_lastMouseYPos - mouseYPos ;
 
 	m_lastMouseXPos = mouseXPos;
 	m_lastMouseYPos = mouseYPos;
-	diffX *= Config::INPUT::MOUSE_SENSITIVITY;
-	diffY *= Config::INPUT::MOUSE_SENSITIVITY;
+	diffX *= (int)Config::INPUT::MOUSE_SENSITIVITY;
+	diffY *= (int)Config::INPUT::MOUSE_SENSITIVITY;
 
 	m_mousePitch += diffY;
 	m_mouseYaw += diffX;
@@ -131,15 +123,6 @@ void App::Render()
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 
-	if (m_meshes.size() == 0) return;
-
-	if (m_light != nullptr)
-		m_light->Render();
-
-	for (Mesh* m : m_meshes)
-	{
-		m->Render();
-	}
 }
 
 void App::CalculateFPS()
@@ -158,28 +141,29 @@ void App::CalculateFPS()
 
 void App::Update()
 {
+	CalculateFPS();
+
 	m_inputManager->Update();
 	Camera::GetInstance().Update();
 	Time::GetInstance().Update();
-	CalculateFPS();
-	if (m_light != nullptr)
+
+	if (m_light)
 		m_light->Update();
 
-	if (m_meshes.size() == 0) return;
-	for (Mesh* m : m_meshes)
+	if (m_gameObjects.size() == 0) return;
+	for (GameObject* gOb : m_gameObjects)
 	{
-		m->Update();
+		gOb->Update();
 	}
 }
 
 App::~App()
 {
-	for (Mesh* m : m_meshes)
+	for (GameObject* gOb : m_gameObjects)
 	{
-		delete m;
+		delete gOb;
 	}
 
 	delete m_light;
-
 	delete m_window;
 }
