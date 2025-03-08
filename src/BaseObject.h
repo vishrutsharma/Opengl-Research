@@ -11,6 +11,9 @@
 #include <gtc/type_ptr.hpp>
 #include <string>
 
+class MaterialComponent;
+class MeshComponent;
+
 class BaseObject
 {
 public:
@@ -18,20 +21,22 @@ public:
 	inline const std::string& GetName() { return m_name; }
 	inline void SetPosition(glm::vec3 pos) { m_position = pos; }
 	inline const glm::vec3& GetPosition() { return m_position; }
+	inline const glm::vec3& GetRotation() { return m_rotation; }
+	inline const glm::vec3& GetScale() { return m_scale; }
 	
 	inline void SetRotation(glm::vec3 rotation) { m_rotation = rotation; }
 	inline void SetScale(glm::vec3 scale) { m_scale = scale; }
 
 	inline void AddMeshComponent(const std::string& meshPath) { 
-		m_meshComponent = std::make_unique<MeshComponent>(meshPath);}
+		m_meshComponent = std::make_unique<MeshComponent>(meshPath,this);}
 
-	inline void AddMaterialComponent(glm::vec3 color,const std::string& vertexShaderPath,const std::string& fragmentShaderPath) { 
-		m_materialComponent = std::make_unique<MaterialComponent>(color,vertexShaderPath,fragmentShaderPath); }
+	inline void AddMaterialComponent(glm::vec3 color,const char* vertexShaderPath,const char* fragmentShaderPath) { 
+		m_materialComponent = std::make_unique<MaterialComponent>(this,color,vertexShaderPath,fragmentShaderPath); }
 
 	inline const std::unique_ptr<MeshComponent>& GetMesh() { return m_meshComponent; }
 	inline const std::unique_ptr<MaterialComponent>& GetMaterial() { return m_materialComponent; }
 	inline void SetAsLightCaster(bool active) { isLightCaster = active; }
-	inline bool IsLightCaster() { return isLightCaster; }
+	inline bool IsLightCaster() const { return isLightCaster; }
 
 	virtual void Update();
 	virtual ~BaseObject();

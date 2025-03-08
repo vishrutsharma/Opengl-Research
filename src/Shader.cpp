@@ -41,6 +41,7 @@ Shader::Shader(const char* vPath,const char* fPath)
 	CheckForErrors(fragment, "FRAGMENT");
 
 	ID = glCreateProgram();
+	
 	glAttachShader(ID, vertex);
 	glAttachShader(ID, fragment);
 	glLinkProgram(ID);

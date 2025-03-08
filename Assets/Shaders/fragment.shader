@@ -12,10 +12,10 @@ uniform vec3 ambientColor;
 
 void main()
 {
-	//vec3 norm = normalize(Normals);
-	//vec3 lightDir = normalize(lightPos-FragPos);
-	//float dot = max(dot(norm,lightDir),0.0);
-	//vec3 diff = dot*lightColor;
-	//vec3 result = (ambientColor + diff) * objectColor;
-	FragColor = vec4(objectColor,1.0);
+	vec3 norm = normalize(Normals);
+	vec3 lightDir = normalize(lightPos-FragPos);
+	float dot = max(dot(norm,lightDir),0.0);
+	vec3 diff = dot*lightColor;
+	vec3 result = diff * objectColor;
+	FragColor = vec4(result,1.0);
 }

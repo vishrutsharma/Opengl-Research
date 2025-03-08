@@ -12,6 +12,9 @@
 #include "MeshLoader.h"
 #include "Camera.h"
 #include <string>
+#include "BaseObject.h"
+
+class BaseObject;
 
 class MeshComponent
 {
@@ -19,11 +22,12 @@ private:
 	unsigned int VBO;
 	unsigned int VAO;
 	unsigned int EBO;
+	BaseObject* owner = nullptr;
 	C_Mesh::Data m_data;
 
 public:
-	MeshComponent(const std::string& meshPath);
+	MeshComponent(const std::string& meshPath,BaseObject* baseObject);
 	inline const C_Mesh::Data& GetData() { return m_data; }
-	void Update(const glm::vec3& pos,const glm::vec3& rot,const glm::vec3& scale,const unsigned int shaderId);
+	void Update();
 	~MeshComponent();
 };

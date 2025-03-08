@@ -2,16 +2,11 @@
 
 void BaseObject::Update()
 {
-	if (!m_meshComponent)
-		return;
-
-	unsigned int shaderId = -1;
 	if (m_materialComponent)
-	{
-		shaderId = m_materialComponent->GetShaderId();
-	}
-	m_meshComponent->Update(m_position,m_rotation,m_scale,shaderId);
-	m_materialComponent->Update();
+		m_materialComponent->Update();
+
+	if (m_meshComponent)
+		m_meshComponent->Update();
 }
 
 BaseObject::~BaseObject()

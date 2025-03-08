@@ -5,7 +5,7 @@
 #include "Scene.h"
 
 
-MeshComponent::MeshComponent(const std::string& meshPath):VBO(0),VAO(0),EBO(0)
+MeshComponent::MeshComponent(const std::string& meshPath,BaseObject* baseObject):owner(baseObject), VBO(0),VAO(0),EBO(0)
 {
 	C_Mesh::Data meshData = MeshLoader::LoadMesh(meshPath.c_str());
 	if (!meshData.IsValid())
@@ -65,14 +65,18 @@ MeshComponent::MeshComponent(const std::string& meshPath):VBO(0),VAO(0),EBO(0)
 
 }
 
-void MeshComponent::Update(const glm::vec3& pos,const glm::vec3& rot,const glm::vec3& scale,const unsigned int shaderId)
+void MeshComponent::Update()
 {
+	glm::vec3 pos = owner->GetPosition();
+	glm::vec3 rotation = owner->GetRotation();
+	glm::vec3 scale = owner->GetScale();
+	unsigned int shaderID = owner->GetMaterial()->GetShaderId();
 	glm::mat4 modelMatrix = glm::mat4(1.0f);
 	glm::mat4 projectionMatrix = glm::mat4(1.0f);
 	modelMatrix = glm::translate(modelMatrix, pos);
-	modelMatrix = glm::rotate(modelMatrix, rot[0], glm::vec3(1.0, 0.0, 0.0));
-	modelMatrix = glm::rotate(modelMatrix, rot[1], glm::vec3(0.0, 1.0, 0.0));
-	modelMatrix = glm::rotate(modelMatrix, rot[2], glm::vec3(0.0, 0.0, 1.0));
+	modelMatrix = glm::rotate(modelMatrix, rotation[0], glm::vec3(1.0, 0.0, 0.0));
+	modelMatrix = glm::rotate(modelMatrix, rotation[1], glm::vec3(0.0, 1.0, 0.0));
+	modelMatrix = glm::rotate(modelMatrix, rotation[2], glm::vec3(0.0, 0.0, 1.0));
 	modelMatrix = glm::scale(modelMatrix, scale);
 
 	//Configure it inside Camera Class
@@ -81,9 +85,9 @@ void MeshComponent::Update(const glm::vec3& pos,const glm::vec3& rot,const glm::
 		Config::CAMERA::NEAR_CLIP_PLANE,
 		Config::CAMERA::FAR_CLIP_PLANE);
 
-	unsigned int modelLocation = glGetUniformLocation(shaderId, "model");
-	unsigned int viewLocation = glGetUniformLocation(shaderId, "view");
-	unsigned int projectionLocation = glGetUniformLocation(shaderId, "projection");
+	unsigned int modelLocation = glGetUniformLocation(shaderID, "model");
+	unsigned int viewLocation = glGetUniformLocation(shaderID, "view");
+	unsigned int projectionLocation = glGetUniformLocation(shaderID, "projection");
 
 	glad_glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(modelMatrix));
 	glad_glUniformMatrix4fv(viewLocation, 1, GL_FALSE, glm::value_ptr(Camera::GetInstance().GetViewMatrix()));
