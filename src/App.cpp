@@ -27,7 +27,7 @@ App::App() : m_framesSampleCount(0),
 
 void App::Init()
 {
-	m_elapsedTime = Time::GetInstance().GetTimeSinceStart();
+	m_elapsedTime = 0.0;
 	m_inputManager = new InputManager(m_window);
 	m_keyBindings = new KeyBindings();
 	glfwSetWindowUserPointer(m_window,m_inputManager);
@@ -36,19 +36,18 @@ void App::Init()
 	m_keyBindings->BindKey(GLFW_KEY_D, Action::MOVE_RIGHT);
 	m_keyBindings->BindKey(GLFW_KEY_S, Action::MOVE_BACKWARD);
 	
-	const int OBJECT_SIZE = 1;
+	const int OBJECT_SIZE = 100;
 	for (int i = 0; i < OBJECT_SIZE; i++)
 	{
 		GameObject* gObject = new GameObject("GameObject_"+std::to_string(i));
 		gObject->AddMeshComponent(Config::PATHS::MESH_PATH);
-		gObject->AddMaterialComponent(GetVec3Color(Color::Orange),Config::PATHS::VERTEX_SHADER_PATH,Config::PATHS::FRAGMENT_SHADER_PATH);
+		gObject->AddMaterialComponent(GetRandomColor(), Config::PATHS::VERTEX_SHADER_PATH, Config::PATHS::FRAGMENT_SHADER_PATH);
 
 		float rx = Utils::GET_RANDOM_NUMBER(-4.0, 4.0);
 		float ry = Utils::GET_RANDOM_NUMBER(-4.0, 4.0);
-		float rz = -Utils::GET_RANDOM_NUMBER(4.0, 30.0);
-		glm::vec3 pos = glm::vec3(15.0, 0, -15.0);
+		float rz = -Utils::GET_RANDOM_NUMBER(4.0, 130.0);
+		glm::vec3 pos = glm::vec3(rx,ry, rz);
 		float rScale = Utils::GET_RANDOM_NUMBER(0.2, 0.8);
-		rScale = 5.5;
 		gObject->SetPosition(pos); 
 		gObject->SetScale(glm::vec3(rScale, rScale, rScale));
 		gObject->SetRotation(glm::vec3(90.0, 0.0, 0.0));

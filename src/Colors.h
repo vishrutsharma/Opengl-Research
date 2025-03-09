@@ -1,5 +1,6 @@
 #pragma once
 #include <glm.hpp>
+#include "Utils.h"
 
 enum class Color {
     Red,
@@ -15,6 +16,7 @@ enum class Color {
     Purple,
     Pink
 };
+
 
 inline glm::vec3 GetVec3Color(Color color) {
     switch (color) {
@@ -32,4 +34,11 @@ inline glm::vec3 GetVec3Color(Color color) {
     case Color::Pink:    return { 1.0f, 0.4f, 0.7f };
     default:             return { 1.0f, 1.0f, 1.0f }; // Default White
     }
+}
+
+
+inline glm::vec3 GetRandomColor()
+{
+    int index = Utils::GET_RANDOM_NUMBER(0, 12);
+    return GetVec3Color(static_cast<Color>(index));
 }

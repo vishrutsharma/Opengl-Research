@@ -7,7 +7,6 @@ class Time : public Singleton<Time>
 	public:
 		inline float GetDeltaTime() { return m_deltaTime; }
 		inline float GetCurrentTime() { return glfwGetTime(); }
-		inline float GetTimeSinceStart() { return m_timeSinceStart; }
 		void Update();
 
 	private:
