@@ -11,6 +11,8 @@ void GameObject::Update()
 	}
 	else
 	{
-		
+
 	}
+	
+	
 }

@@ -20,6 +20,7 @@ C_Mesh::Data MeshLoader::LoadMesh(const char* path)
 		vertex.position = glm::vec3(v["position"][0].as<float>(), v["position"][1].as<float>(), v["position"][2].as<float>());
 		vertex.vertexColors = glm::vec3(v["color"][0].as<float>(), v["color"][1].as<float>(), v["color"][2].as<float>());
 		vertex.uvCoodinates = glm::vec2(v["uv"][0].as<float>(), v["uv"][1].as<float>());
+		vertex.vertexNormals = glm::vec3(v["normal"][0].as<float>(), v["normal"][1].as<float>(), v["normal"][2].as<float>());
 		vertices.push_back(vertex);
 	}
 

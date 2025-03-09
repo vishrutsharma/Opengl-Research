@@ -36,7 +36,7 @@ void App::Init()
 	m_keyBindings->BindKey(GLFW_KEY_D, Action::MOVE_RIGHT);
 	m_keyBindings->BindKey(GLFW_KEY_S, Action::MOVE_BACKWARD);
 	
-	const int OBJECT_SIZE = 100;
+	const int OBJECT_SIZE = 1;
 	for (int i = 0; i < OBJECT_SIZE; i++)
 	{
 		GameObject* gObject = new GameObject("GameObject_"+std::to_string(i));
@@ -46,11 +46,12 @@ void App::Init()
 		float rx = Utils::GET_RANDOM_NUMBER(-4.0, 4.0);
 		float ry = Utils::GET_RANDOM_NUMBER(-4.0, 4.0);
 		float rz = -Utils::GET_RANDOM_NUMBER(4.0, 30.0);
-		glm::vec3 pos = glm::vec3(rx, ry, rz);
+		glm::vec3 pos = glm::vec3(15.0, 0, -15.0);
 		float rScale = Utils::GET_RANDOM_NUMBER(0.2, 0.8);
-		
+		rScale = 5.5;
 		gObject->SetPosition(pos); 
 		gObject->SetScale(glm::vec3(rScale, rScale, rScale));
+		gObject->SetRotation(glm::vec3(90.0, 0.0, 0.0));
 		m_gameObjects.push_back(gObject);
 	}
 
@@ -58,7 +59,7 @@ void App::Init()
 	m_light = new GameObject("Light");
 	m_light->AddMeshComponent(Config::PATHS::LIGHT_MESH_PATH);
 	m_light->AddMaterialComponent(GetVec3Color(Color::White), Config::PATHS::LIGHT_VERTEX_SHADER_PATH, Config::PATHS::LIGHT_FRAGMENT_SHADER_PATH);
-	m_light->SetPosition(glm::vec3(15.0, 5.0, -15.0));
+	m_light->SetPosition(glm::vec3(15.0, 15.0, -15.0));
 	
 	m_light->SetScale(glm::vec3(5.5, 5.5, 5.5));
 	m_light->SetAsLightCaster(true);
@@ -100,18 +101,13 @@ void App::ProcessInput()
 	int mouseYPos = 0;
 	m_inputManager->GetMousePosition(mouseXPos, mouseYPos);
 
-	int diffX = mouseXPos - m_lastMouseXPos;
-	int diffY = m_lastMouseYPos - mouseYPos ;
+	float diffX = mouseXPos - m_lastMouseXPos;
+	float diffY = m_lastMouseYPos - mouseYPos ;
 
 	m_lastMouseXPos = mouseXPos;
 	m_lastMouseYPos = mouseYPos;
-	std::cout << "DiffX Before:" << diffX << std::endl;
-	std::cout << "DiffY Before:" << diffY << std::endl;
 	diffX *= Config::INPUT::MOUSE_SENSITIVITY;
 	diffY *= Config::INPUT::MOUSE_SENSITIVITY;
-
-	std::cout << "DiffX After:" << diffX << std::endl;
-	std::cout << "DiffY After:" << diffY << std::endl;
 
 	m_mousePitch += diffY;
 	m_mouseYaw += diffX;

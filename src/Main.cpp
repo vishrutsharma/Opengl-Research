@@ -53,6 +53,7 @@ int main()
 		glfwPollEvents();
 		glfwSwapBuffers(window);
 		glEnable(GL_DEPTH_TEST);
+		glDisable(GL_CULL_FACE);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 

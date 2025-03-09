@@ -23,6 +23,7 @@ void MaterialComponent::Update()
 		m_shader->SetVec3("lightColor", Scene::GetInstance().GetLight()->GetMaterial()->GetColor());
 		m_shader->SetVec3("ambientColor", Scene::GetInstance().GetAmbientColor());
 		m_shader->SetVec3("lightPos", Scene::GetInstance().GetLight()->GetPosition());
+		
 	}
 	
 	//glUniform1i(glGetUniformLocation(m_shader->ID, "ourTexture"), 0);

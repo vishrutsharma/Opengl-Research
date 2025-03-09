@@ -36,6 +36,7 @@ MeshComponent::MeshComponent(const std::string& meshPath,BaseObject* baseObject)
 		vertexData.push_back(normals[0]);
 		vertexData.push_back(normals[1]);
 		vertexData.push_back(normals[2]);
+		std::cout << "Normals x:" << normals[0] << " y:" << normals[1] << " z:" << normals[2] << std::endl;
 	}
 
 	glGenVertexArrays(1, &VAO);
@@ -78,7 +79,8 @@ void MeshComponent::Update()
 	modelMatrix = glm::rotate(modelMatrix, rotation[1], glm::vec3(0.0, 1.0, 0.0));
 	modelMatrix = glm::rotate(modelMatrix, rotation[2], glm::vec3(0.0, 0.0, 1.0));
 	modelMatrix = glm::scale(modelMatrix, scale);
-
+	
+	glm::vec3 lightPos = Scene::GetInstance().GetLight()->GetPosition();
 	//Configure it inside Camera Class
 	projectionMatrix = glm::perspective(glm::radians(Config::CAMERA::FOV),
 		(float)Config::WINDOW::SCREEN_WIDTH / (float)Config::WINDOW::SCREEN_HEIGHT,
@@ -88,7 +90,6 @@ void MeshComponent::Update()
 	unsigned int modelLocation = glGetUniformLocation(shaderID, "model");
 	unsigned int viewLocation = glGetUniformLocation(shaderID, "view");
 	unsigned int projectionLocation = glGetUniformLocation(shaderID, "projection");
-
 	glad_glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(modelMatrix));
 	glad_glUniformMatrix4fv(viewLocation, 1, GL_FALSE, glm::value_ptr(Camera::GetInstance().GetViewMatrix()));
 	glad_glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
