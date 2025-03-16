@@ -47,7 +47,7 @@ void App::Init()
 		float ry = Utils::GET_RANDOM_NUMBER(-4.0, 4.0);
 		float rz = -Utils::GET_RANDOM_NUMBER(4.0, 130.0);
 		glm::vec3 pos = glm::vec3(rx,ry, rz);
-		float rScale = Utils::GET_RANDOM_NUMBER(0.2, 0.8);
+		float rScale = Utils::GET_RANDOM_NUMBER(0.2, 2.8);
 		gObject->SetPosition(pos); 
 		gObject->SetScale(glm::vec3(rScale, rScale, rScale));
 		gObject->SetRotation(glm::vec3(90.0, 0.0, 0.0));

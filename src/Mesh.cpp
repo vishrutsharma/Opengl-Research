@@ -36,7 +36,6 @@ MeshComponent::MeshComponent(const std::string& meshPath,BaseObject* baseObject)
 		vertexData.push_back(normals[0]);
 		vertexData.push_back(normals[1]);
 		vertexData.push_back(normals[2]);
-		std::cout << "Normals x:" << normals[0] << " y:" << normals[1] << " z:" << normals[2] << std::endl;
 	}
 
 	glGenVertexArrays(1, &VAO);

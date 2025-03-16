@@ -8,7 +8,7 @@ void GameObject::Update()
 	BaseObject::Update();
 	if (!isLightCaster)
 	{
-		SetRotation(glm::vec3(glfwGetTime(), glfwGetTime(), glfwGetTime()));
+		//SetRotation(glm::vec3(glfwGetTime(), glfwGetTime(), glfwGetTime()));
 	}
 	else
 	{
