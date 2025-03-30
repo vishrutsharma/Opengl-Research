@@ -36,16 +36,16 @@ void App::Init()
 	m_keyBindings->BindKey(GLFW_KEY_D, Action::MOVE_RIGHT);
 	m_keyBindings->BindKey(GLFW_KEY_S, Action::MOVE_BACKWARD);
 	
-	const int OBJECT_SIZE = 100;
+	const int OBJECT_SIZE = 10;
 	for (int i = 0; i < OBJECT_SIZE; i++)
 	{
 		GameObject* gObject = new GameObject("GameObject_"+std::to_string(i));
 		gObject->AddMeshComponent(Config::PATHS::MESH_PATH);
 		gObject->AddMaterialComponent(GetRandomColor(), Config::PATHS::VERTEX_SHADER_PATH, Config::PATHS::FRAGMENT_SHADER_PATH);
 
-		float rx = Utils::GET_RANDOM_NUMBER(-4.0, 4.0);
-		float ry = Utils::GET_RANDOM_NUMBER(-4.0, 4.0);
-		float rz = -Utils::GET_RANDOM_NUMBER(4.0, 130.0);
+		float rx = Utils::GET_RANDOM_NUMBER(-5.0, 5.0);
+		float ry = Utils::GET_RANDOM_NUMBER(-8.0, 8.0);
+		float rz = -Utils::GET_RANDOM_NUMBER(4.0,20.0);
 		glm::vec3 pos = glm::vec3(rx,ry, rz);
 		float rScale = Utils::GET_RANDOM_NUMBER(0.2, 2.8);
 		gObject->SetPosition(pos); 
@@ -57,10 +57,10 @@ void App::Init()
 	//Init Light
 	m_light = new GameObject("Light");
 	m_light->AddMeshComponent(Config::PATHS::LIGHT_MESH_PATH);
-	m_light->AddMaterialComponent(GetVec3Color(Color::White), Config::PATHS::LIGHT_VERTEX_SHADER_PATH, Config::PATHS::LIGHT_FRAGMENT_SHADER_PATH);
-	m_light->SetPosition(glm::vec3(15.0, 15.0, -15.0));
+	m_light->AddMaterialComponent(GetVec3Color(Color::Red), Config::PATHS::LIGHT_VERTEX_SHADER_PATH, Config::PATHS::LIGHT_FRAGMENT_SHADER_PATH);
+	m_light->SetPosition(glm::vec3(0.0, 0.0, -15.0));
 	
-	m_light->SetScale(glm::vec3(5.5, 5.5, 5.5));
+	m_light->SetScale(glm::vec3(3.5, 3.5, 3.5));
 	m_light->SetAsLightCaster(true);
 	Scene::GetInstance().SetLight(m_light);
 }

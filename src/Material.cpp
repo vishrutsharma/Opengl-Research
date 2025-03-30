@@ -18,28 +18,20 @@ void MaterialComponent::Update()
 	lightColor.y = abs(sin(glfwGetTime() * 0.7f));
 	lightColor.z = abs(sin(glfwGetTime() * 1.3f));
 
-	glm::vec3 diffuseColor = lightColor * glm::vec3(0.5f);
-	glm::vec3 ambientColor = diffuseColor * glm::vec3(0.2f);
-	glm::vec3 specularColor = glm::vec3(1.0, 1.0, 1.0);
-
 	if (owner->IsLightCaster())
 	{
-		m_shader->SetVec3("lightColor", diffuseColor + ambientColor + specularColor);
+		m_shader->SetVec3("lightColor", lightColor);
 	}
 	else
 	{
-		m_shader->SetVec3("light.ambient", ambientColor);
-		m_shader->SetVec3("light.diffuse", diffuseColor);
+		
+		m_shader->SetVec3("lightMaterial.color", lightColor);
 		m_shader->SetVec3("viewPos", Camera::GetInstance().GetPosition());
-		m_shader->SetVec3("light.position", Scene::GetInstance().GetLight()->GetPosition());
-		m_shader->SetVec3("material.ambient",glm::vec3(1.0f, 0.5f, 1.0f));
+		m_shader->SetVec3("lightMaterial.position", Scene::GetInstance().GetLight()->GetPosition());
+		m_shader->SetVec3("material.ambient", glm::vec3(0.2f, 0.2f, 0.2f));
 		m_shader->SetVec3("material.diffuse", m_color);
 		m_shader->SetVec3("material.specular", glm::vec3(0.5f, 0.5f, 0.5f));
 		m_shader->SetFloat("material.shininess", 32.0f);
 	}
 
-	
-
-	
-	
 }

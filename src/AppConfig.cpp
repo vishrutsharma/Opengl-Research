@@ -4,9 +4,9 @@ namespace Config
 {
 	namespace WINDOW
 	{
-		const int SCREEN_WIDTH = 1920;
-		const int SCREEN_HEIGHT = 1080;
-		const char* WINDOW_TITLE = "Opengl Boilerplate";
+		const int SCREEN_WIDTH = 840;
+		const int SCREEN_HEIGHT = 840;
+		const char* WINDOW_TITLE = "Opengl";
 	}
 
 	namespace INPUT
