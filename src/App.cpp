@@ -36,25 +36,27 @@ void App::Init()
 	m_keyBindings->BindKey(GLFW_KEY_D, Action::MOVE_RIGHT);
 	m_keyBindings->BindKey(GLFW_KEY_S, Action::MOVE_BACKWARD);
 	
-	const int OBJECT_SIZE = 10;
-	for (int i = 0; i < OBJECT_SIZE; i++)
+	const int OBJECT_SIZE = 20;
+	for (unsigned int i = 0; i < OBJECT_SIZE; i++)
 	{
 		GameObject* gObject = new GameObject("GameObject_"+std::to_string(i));
 		gObject->AddMeshComponent(Config::PATHS::MESH_PATH);
-		gObject->AddMaterialComponent(GetRandomColor(), Config::PATHS::VERTEX_SHADER_PATH, Config::PATHS::FRAGMENT_SHADER_PATH);
+		gObject->AddMaterialComponent(GetVec3Color(Color::White), Config::PATHS::VERTEX_SHADER_PATH, Config::PATHS::FRAGMENT_SHADER_PATH);
 
-		float rx = Utils::GET_RANDOM_NUMBER(-5.0, 5.0);
+		float rx = Utils::GET_RANDOM_NUMBER(-8.0, 8.0);
 		float ry = Utils::GET_RANDOM_NUMBER(-8.0, 8.0);
-		float rz = -Utils::GET_RANDOM_NUMBER(4.0,20.0);
+		float rz = -Utils::GET_RANDOM_NUMBER(4.0,50.0);
 		glm::vec3 pos = glm::vec3(rx,ry, rz);
 		float rScale = Utils::GET_RANDOM_NUMBER(0.2, 2.8);
 		gObject->SetPosition(pos); 
 		gObject->SetScale(glm::vec3(rScale, rScale, rScale));
-		gObject->SetRotation(glm::vec3(90.0, 0.0, 0.0));
+
+		float angle = 20.0f * i;
+		gObject->SetRotation(glm::vec3(angle, angle, angle));
 		m_gameObjects.push_back(gObject);
 	}
 
-	//Init Light
+	//Init Light A
 	m_light = new GameObject("Light");
 	m_light->AddMeshComponent(Config::PATHS::LIGHT_MESH_PATH);
 	m_light->AddMaterialComponent(GetVec3Color(Color::Red), Config::PATHS::LIGHT_VERTEX_SHADER_PATH, Config::PATHS::LIGHT_FRAGMENT_SHADER_PATH);
